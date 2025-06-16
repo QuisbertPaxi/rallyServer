@@ -14,6 +14,7 @@ import v1._2_DTO.FotografiaDTO;
 import v1._3_Repository.ConcursoRepository;
 import v1._3_Repository.FotografiaRepository;
 import v1._3_Repository.UsuarioRepository;
+import v1._3_Repository.VotoRepository;
 import v1._4_Service.Interface.FotografiaService;
 
 import java.net.URI;
@@ -40,6 +41,9 @@ public class FotografiaImpl implements FotografiaService {
 
     @Autowired
     ConcursoRepository concursoRepository;
+
+    @Autowired
+    VotoRepository votosRepository;
 
     String roleParticipante = "participante";
     String roleAdmin = "admin";
@@ -181,10 +185,16 @@ public class FotografiaImpl implements FotografiaService {
 
             return ResponseEntity.badRequest().body("No se envió el usuario que elimina el registro");
         }
-         // fotografia.setEstado("ELIMINADO");
+        // fotografia.setEstado("ELIMINADO");
        // fotografia.setUsuarioModificacion(fotografiaDTO.getUsuMod());
        // fotografia.setFechaModificacion(new Timestamp(new Date().getTime()));
        // fotografiaRepository.save(fotografia);
+
+        long votoscount = votosRepository.contarVotosPorFotografia(fotografia.getId());
+
+        if (votoscount > 0){
+            votosRepository.eliminarVotosPorFotografia(fotografia.getId());
+        }
 
         fotografiaRepository.eliminarFotografiaPorId(fotografiaDTO.getId());
         return ResponseEntity.ok("Se ha eliminado con exito la fotografia");
@@ -281,6 +291,7 @@ public class FotografiaImpl implements FotografiaService {
 
             if (response.statusCode() == 200) {
                 ObjectMapper mapper = new ObjectMapper();
+
                 JsonNode json = mapper.readTree(response.body());
                 return json.get("data").get("url").asText(); // URL pública de la imagen
             } else {
