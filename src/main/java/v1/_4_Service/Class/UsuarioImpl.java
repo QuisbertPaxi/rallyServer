@@ -11,6 +11,7 @@ import v1.Security.JWT.TokenResponse;
 import v1._1_Model.Usuario;
 import v1._2_DTO.InicioSesionDTO;
 import v1._2_DTO.UsuarioDTO;
+import v1._3_Repository.FotografiaRepository;
 import v1._3_Repository.UsuarioRepository;
 import v1._4_Service.Interface.UsuarioService;
 
@@ -131,9 +132,11 @@ public class UsuarioImpl implements UsuarioService {
             return false;
         }
 
-        u.setEstado("ELIMINADO");
-        u.setFechaModificacion(new Timestamp(new Date().getTime()));
-        usuarioRepository.save(u);
+        // u.setEstado("ELIMINADO");
+        // u.setFechaModificacion(new Timestamp(new Date().getTime()));
+        // usuarioRepository.save(u);
+        fotografiaRepository.eliminarFotografiasPorUsuario(u.getId());
+        usuarioRepository.delete(u);
         return true;
     }
 
