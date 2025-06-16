@@ -2,6 +2,7 @@ package v1._3_Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
 import v1._1_Model.Usuario;
 import v1._2_DTO.UsuarioDTO;
@@ -27,4 +28,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         """)
     List<UsuarioDTO> findByEstadoNot();
 
+    
+      @Modifying
+    @Query("DELETE FROM Usuario u WHERE u.id = :usuarioId")
+    void eliminarUsuarioPorId(Long usuarioId);
 }
