@@ -10,7 +10,8 @@ import v1._4_Service.Interface.UsuarioService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = {"http://localhost:4200"})
+// @CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://rally-client.vercel.app/"})
 public class AuthController {
 
     @Autowired

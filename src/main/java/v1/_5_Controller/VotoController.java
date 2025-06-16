@@ -9,7 +9,8 @@ import v1._4_Service.Interface.VotoService;
 
 @Controller
 @RequestMapping("/votos")
-@CrossOrigin(origins = {"http://localhost:4200"})
+// @CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://rally-client.vercel.app/"})
 public class VotoController {
 
     @Autowired

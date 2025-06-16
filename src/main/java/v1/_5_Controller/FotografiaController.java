@@ -15,7 +15,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/fotografias")
-@CrossOrigin(origins = {"http://localhost:4200"})
+// @CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://rally-client.vercel.app/"})
 public class FotografiaController {
 
     @Autowired

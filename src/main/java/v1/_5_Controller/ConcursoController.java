@@ -9,7 +9,8 @@ import v1._4_Service.Interface.ConcursoService;
 
 @Controller
 @RequestMapping("/concurso")
-@CrossOrigin(origins = {"http://localhost:4200"})
+// @CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://rally-client.vercel.app/"})
 public class ConcursoController {
 
     @Autowired

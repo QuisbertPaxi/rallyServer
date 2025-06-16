@@ -14,7 +14,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
-@CrossOrigin(origins = {"http://localhost:4200"})
+// @CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://rally-client.vercel.app/"})
 public class UsuarioController {
 
     @Autowired
