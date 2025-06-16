@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class FotografiaImpl implements FotografiaService {
 
@@ -180,11 +181,12 @@ public class FotografiaImpl implements FotografiaService {
 
             return ResponseEntity.badRequest().body("No se envió el usuario que elimina el registro");
         }
-        fotografia.setEstado("ELIMINADO");
-        fotografia.setUsuarioModificacion(fotografiaDTO.getUsuMod());
-        fotografia.setFechaModificacion(new Timestamp(new Date().getTime()));
-        fotografiaRepository.save(fotografia);
+         // fotografia.setEstado("ELIMINADO");
+       // fotografia.setUsuarioModificacion(fotografiaDTO.getUsuMod());
+       // fotografia.setFechaModificacion(new Timestamp(new Date().getTime()));
+       // fotografiaRepository.save(fotografia);
 
+        fotografiaRepository.eliminarFotografiaPorId(fotografiaDTO.getId());
         return ResponseEntity.ok("Se ha eliminado con exito la fotografia");
     }
 
