@@ -2,6 +2,7 @@ package v1._3_Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Modifying;
 import v1._1_Model.Fotografia;
 import v1._2_DTO.FotografiaDTO;
 
@@ -47,5 +48,13 @@ public interface FotografiaRepository extends JpaRepository<Fotografia, Long> {
               AND f.participante.id = :idParticipante
            """)
     Integer countFotografiasAprobadasYPendientes(Long idParticipante);
+
+      @Modifying
+    @Query("DELETE FROM Fotografia f WHERE f.participante.id = :participanteId")
+    void eliminarFotografiasPorUsuario(Long participanteId);
+
+    @Modifying
+    @Query("DELETE FROM Fotografia f WHERE f.id = :fotografiaId")
+    void eliminarFotografiaPorId(Long fotografiaId);
 
 }
