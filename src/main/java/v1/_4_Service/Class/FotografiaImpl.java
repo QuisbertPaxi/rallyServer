@@ -258,11 +258,24 @@ public class FotografiaImpl implements FotografiaService {
             return  ResponseEntity.notFound().build();
         }
 
-        if(aprobado){
-            fotografia.setEstado("APROBADO");
-        }else{
-            fotografia.setEstado("RECHAZADO");
+//        if(aprobado){
+//            fotografia.setEstado("APROBADO");
+//        }else{
+//            fotografia.setEstado("RECHAZADO");
+//        }
+
+        if (!aprobado) {
+            long votoscount = votosRepository.contarVotosPorFotografia(fotografia.getId());
+
+            if (votoscount > 0){
+                votosRepository.eliminarVotosPorFotografia(fotografia.getId());
+            }
+
+            fotografiaRepository.eliminarFotografiaPorId(fotografia.getId());
+            return ResponseEntity.noContent().build();
         }
+
+        fotografia.setEstado("APROBADO");
         fotografia.setUsuarioAprobacion(user.getUserName());
         fotografia.setFechaAprobacion(new Timestamp(new Date().getTime()));
 
